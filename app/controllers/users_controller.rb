@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_path
     else
-      redirect_to users_new
+      redirect_to signup_path
     end
   end
 
