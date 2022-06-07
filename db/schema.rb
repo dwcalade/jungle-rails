@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_06_020021) do
+ActiveRecord::Schema.define(version: 2022_05_05_155622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
+
   create_table "line_items", force: :cascade do |t|
     t.bigint "order_id"
     t.bigint "product_id"
@@ -30,6 +32,7 @@ ActiveRecord::Schema.define(version: 2022_05_06_020021) do
     t.index ["order_id"], name: "index_line_items_on_order_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
   end
+
   create_table "orders", force: :cascade do |t|
     t.integer "total_cents"
     t.datetime "created_at", precision: 6, null: false
@@ -37,6 +40,7 @@ ActiveRecord::Schema.define(version: 2022_05_06_020021) do
     t.string "stripe_charge_id"
     t.string "email"
   end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -50,13 +54,13 @@ ActiveRecord::Schema.define(version: 2022_05_06_020021) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "first"
-    t.string "last"
+    t.string "name"
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
+
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
   add_foreign_key "products", "categories"
