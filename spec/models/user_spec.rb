@@ -1,6 +1,6 @@
 require 'rails_helper'
 RSpec.describe User, type: :model do
-
+  
   before(:each) do
     @user = User.create({
       first: 'Bob',
@@ -10,7 +10,6 @@ RSpec.describe User, type: :model do
       password_confirmation: 'password'
     })
   end
-
   describe 'Validations' do
     it 'returns true if created User is valid' do
       expect(@user.valid?).to be_truthy
@@ -21,23 +20,11 @@ RSpec.describe User, type: :model do
       @user.save
       expect(@user.valid?).to be_falsey
     end
-
     it 'returns false if email is not unique' do
     @user2 = User.create({
       first: 'Bob',
       last: 'Saget',
       email: 'bob.saget@hotmail.com',
-      password: 'password',
-      password_confirmation: 'password'
-    })
-    expect(@user2.errors.full_messages).to include "Email has already been taken"
-    end
-
-    it 'returns false if email is not unique, also not case-sensitive' do
-    @user2 = User.create({
-      first: 'Bob',
-      last: 'Saget',
-      email: 'BOB.SAGET@hotmail.com',
       password: 'password',
       password_confirmation: 'password'
     })
@@ -52,10 +39,9 @@ RSpec.describe User, type: :model do
       password: 'password',
       password_confirmation: 'password'
     }) 
-
     expect(@user2.valid?).to be_truthy
     end
-
+    
     it 'returns false if first name is nil' do
     @user2 = User.create({
       first: nil,
@@ -67,7 +53,6 @@ RSpec.describe User, type: :model do
     @user2.save
     expect(@user2.errors.full_messages).to include "First can't be blank"
     end
-
     it 'returns false if last name is nil' do
     @user2 = User.create({
       first: 'Finn',
@@ -78,7 +63,6 @@ RSpec.describe User, type: :model do
     }) 
     expect(@user2.errors.full_messages).to include "Last can't be blank"
     end
-
     it 'returns false if email is nil' do
     @user2 = User.create({
       first: 'Finn',
@@ -89,7 +73,6 @@ RSpec.describe User, type: :model do
     })
     expect(@user2.errors.full_messages).to include "Email can't be blank"
     end
-
     it 'returns true if password length is at least 8 characters' do
     @user2 = User.create({
       first: 'Finn',
@@ -100,7 +83,6 @@ RSpec.describe User, type: :model do
     }) 
     expect(@user2.password.length).to eql(8)
     end
-
     it 'returns true if password length is at least 8 characters' do
     @user2 = User.create({
       first: 'Finn',
@@ -126,9 +108,13 @@ RSpec.describe User, type: :model do
       @user = User.authenticate_with_credentials('wrong@email.com', @user.password)
       expect(@user).to be(nil)
     end
-
     it 'authenticates with valid whitespace filled email credentials' do
       @user = User.authenticate_with_credentials('    bob.saget@hotmail.com       ', @user.password)
+      expect(@user).to_not be(nil)
+    end
+
+    it 'authenticates with valid email credentials NOT case sensitive' do
+      @user = User.authenticate_with_credentials('BOB.SAGET@hotmail.com', @user.password)
       expect(@user).to_not be(nil)
     end
   end
