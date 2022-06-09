@@ -2,14 +2,12 @@
 
 A mini e-commerce application built with Rails 6.1 for purposes of teaching Rails by example.
 
-!["Main Page"]()
-!["Login Page"]()
-!["Main Products Page with sold out display"]()
-!["Categories page"]()
-!["Main page with Login credentials"]()
-!["My cart page"]()
-!["New product imput page"]()
-!["My orders page"]()
+!["Main Page"](app/assets/images/Mainpage.jpg)
+!["Login Page"](app/assets/images/Login.jpg)
+!["Sold out Message"](app/assets/images/ProductSoldout.jpg)
+!["Trees page"](app/assets/images/Trees.jpg)
+!["Main page Info Message"](app/assets/images/Info.jpg)
+!["My cart page"](app/assets/images/Cart.jpg)
 
 ## Setup
 
